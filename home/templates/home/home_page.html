@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags %}
+{% load static %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+{% comment %}
+Delete the line below if you're just getting started and want to remove the welcome screen!
+{% endcomment %}
+<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<h1>
+    Welcome to our store
+</h1>
+
+<div class="columns">
+    {% for product in products %}
+    <div class="column">
+
+
+        <div class="card" style="max-width: 400px;">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <div>
+                     {% image product.image width-400 as tmp_image %}
+                    <img src="{{ tmp_image.url }}" class="" style="max-width: 200px; margin: auto;">
+                </div>
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4">
+                      {{ product.title }}
+                </p>
+                </div>
+              </div>
+          
+              <div class="content">
+                {{ product.description }}
+              </div>
+              <div>
+                  <a class="button is-dark" href="{{ product.get_url }}">
+                    <i class="fa fa-plus"></i>
+                  </a>
+              </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% comment %}
+Delete the line below if you're just getting started and want to remove the welcome screen!
+{% endcomment %}
+
+
+{% endblock content %}

@@ -1,0 +1,119 @@
+{% load static wagtailuserbar %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}
+                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+                {% with self.get_site.site_name as site_name %}
+                    {% if site_name %}- {{ site_name }}{% endif %}
+                {% endwith %}
+            {% endblock %}
+        </title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+       
+        {# Global stylesheets #}
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <script src="https://kit.fontawesome.com/b5035ca9ea.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/my_shop.css' %}">
+
+        {# Snipcart #}
+
+        {% if settings.home.SnipcartSettings.api_key %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+            <script src="https://cdn.snipcart.com/scripts/2.0/snipcart.js" id="snipcart" data-api-key="{{ settings.home.SnipcartSettings.api_key }}"></script>
+            <link href="https://cdn.snipcart.com/themes/2.0/base/snipcart.min.css" type="text/css" rel="stylesheet" />
+        {% endif %}
+
+
+        {% block extra_css %}
+            {# Override this in templates to add extra stylesheets #}
+        {% endblock %}
+    </head>
+
+    <body class="{% block body_class %}{% endblock %}">
+        {% wagtailuserbar %}
+
+        <section class="hero is-dark">
+            
+            <div class="hero-head">
+                <nav class="navbar">
+                  <div class="container">
+
+                    <div id="navbarMenuHeroB" class="navbar-menu">
+                      <div class="navbar-end">
+                        <a class="navbar-item is-active">
+                          Home
+                        </a>
+                        <a class="navbar-item">
+                          Examples
+                        </a>
+                        <a class="navbar-item">
+                          Documentation
+                        </a>
+
+                        <span class="navbar-item">
+                          <a class="button is-info is-inverted">
+                            <span class="icon">
+                              <i class="fab fa-github"></i>
+                            </span>
+                            <span>Download</span>
+                          </a>
+                        </span>
+
+                        <span class="navbar-item snipcart-summary">
+                            <a href="" class="button is-info is-inverted snipcart-checkout">
+                                <span class="icon">
+                                    <i class="fab fa-github"></i>
+                                  </span>
+                                  <span>
+                                View cart (
+                                    <span class="snipcart-total-items">0</span>
+                                )
+                            </span>
+                            </a>
+
+                        </span>
+
+                      </div>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            
+            
+            
+            
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">
+                    Book store
+                </h1>
+                <h2 class="subtitle">
+                  Primary subtitle
+                </h2>
+              </div>
+            </div>
+          </section>
+          
+
+        <div class="container">
+        {% block content %}{% endblock %}
+        </div>
+
+        {# Global javascript #}
+        <script type="text/javascript" src="{% static 'js/my_shop.js' %}"></script>
+
+        {% block extra_js %}
+            {# Override this in templates to add extra javascript #}
+        {% endblock %}
+    </body>
+</html>
